@@ -10,3 +10,5 @@
 # Contributing
 
 # License
+
+Pomodoro Clock is [MIT licensed](./LICENSE).
