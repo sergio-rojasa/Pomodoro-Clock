@@ -2,13 +2,15 @@
 
 > Pomodoro clock is a productivity web application.
 
-# Installation
+## Installation
 ```
  $ git clone https://github.com/sergroja/Pomodoro-Clock.git
 ```
 
-# Contributing
+## Contributing
 
-# License
+For information about contributing see [Contribution Guidelines](./CONTRIBUTING.md).
+
+## License
 
 Pomodoro Clock is [MIT licensed](./LICENSE).
