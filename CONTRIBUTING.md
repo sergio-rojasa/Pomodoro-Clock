@@ -2,4 +2,4 @@
 
 ## General Workflow
 
-1. Fork the repo
+1. Fork the repository
