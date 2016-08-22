@@ -9,7 +9,7 @@
 
 ## Contributing
 
-For information about contributing see [Contribution Guidelines](./CONTRIBUTING.md) and [Style Guide](.STYLE_GUIDE.md).
+For information about contributing see [Contribution Guidelines](./CONTRIBUTING.md) and [Style Guide](./STYLE_GUIDE.md).
 
 ## License
 
