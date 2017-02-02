@@ -1,0 +1,23 @@
+{
+  "name": "pomodoroclock",
+  "version": "1.0.0",
+  "description": "Pomodoro clock is a productivity web application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergroja/Pomodoro-Clock.git"
+  },
+  "author": "Sergio Rojas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergroja/Pomodoro-Clock/issues"
+  },
+  "homepage": "https://github.com/sergroja/Pomodoro-Clock#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
