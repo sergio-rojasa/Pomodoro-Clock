@@ -2,10 +2,15 @@ var Clock = function(minutes) {
   this.minutes = minutes;
   this.seconds = 60;
   this.paused = true;
+
   this.togglePaused = function() {
     this.paused = !this.paused;
   };
-  this.retrieveTime = function() {
+  this.displayTime = function(minutes, seconds, element) {
+    var element = document.getElementById(element);
+
+    element.innerHTML = minutes + ":" + seconds;
+
     return this.minutes + ":" + this.seconds;
   };
   this.addAMinute = function() {
@@ -25,7 +30,10 @@ var Clock = function(minutes) {
     if(!clock.paused) {
 
       var countDown = setInterval(function() {
-        if(minutes === 0 && seconds < 1) {
+        if(clock.paused) {
+          clearInterval(countDown);
+        }
+        if(minutes === 0 && seconds <= 1) {
           clock.togglePaused();
           clearInterval(countDown);
         }
@@ -39,15 +47,14 @@ var Clock = function(minutes) {
 
         seconds--;
 
-        console.log(minutes + ":" + seconds);;
+        clock.displayTime(minutes, seconds, "currentTime");
       }, 1000);
     }
   };
 };
 
-var session = new Clock(25);
-var breaks = new Clock(5);
-var p = new Clock(1);
-p.togglePaused();
-p.countdown();
+var session = new Clock(1);
+var breaks = new Clock(2);
+
+
 module.exports = Clock;

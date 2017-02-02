@@ -1,0 +1,169 @@
+@font-face{
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+* {
+  margin: 0 auto;
+  padding: 0;
+}
+html {
+  font-family: "San Francisco";
+  background-color: #f9f9f9;
+}
+#banner {
+  height: 170px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+#banner p {
+  text-align: center;
+  color: #62706c;
+  font-size: 7em;
+  margin-top: 5%;
+}
+#clock {
+  height: 650px;
+  width:  650px;
+  border: 50px solid #00cf9e;
+  border-radius: 100%;
+  margin-left: 12%;
+  margin-top: 12%;
+}
+
+#currentTime {
+  margin-top: 35%;
+  text-align: center;
+  font-size: 10em;
+  color: #62706c;
+}
+#minus {
+  margin-top: -5%;
+  margin-left: 80px;
+  width: 180px;
+  height: 180px;
+  color: #62706c;
+  font-size: 12em;
+
+  background-color: #f9f9f9;
+}
+
+#plus {
+  margin-top: -5%;
+  margin-left: 470px;
+  width: 180px;
+  height: 180px;
+  color: #62706c;
+  font-size: 12em;
+  background-color: #f9f9f9;
+}
+#min {
+  color: #62706c;
+  font-size: 8em;
+
+}
+#min p {
+  margin-top: 0%;
+  text-align: center;
+}
+#switch {
+  margin-left: 140px;
+  background-color: #f9f9f9;
+}
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 2%;
+  background-color: #f9f9f9;
+}
+button {
+  height: 150px;
+  width: 42%;
+  border: none;
+  font-size: 5em;
+  display: inline;
+  margin-right: -3px;
+}
+
+#session {
+  color: #f9f9f9;
+  background-color: #00cf9e;
+}
+
+#break {
+  border: 5px solid #00cf9e;
+  color: #00cf9e;
+  background-color: #f9f9f9;
+}
+
+@media screen and (min-device-width: 800px) {
+  #container {
+
+    height: 520px;
+    width: 350px;
+    margin-top: 5px;
+    border: 5px solid #62706c;
+  }
+  #banner {
+    height: 40px;
+    width: 100%;
+    margin-top: 10%;
+  }
+  #banner p {
+    text-align: center;
+    margin-top: 5%;
+    font-size: 2em;
+  }
+
+  #clock {
+    height: 160px;
+    width: 160px;
+    border: 12px solid #00cf90;
+    margin-left: 23%;
+    margin-top: 13%;
+  }
+  #currentTime {
+    margin-top: 35%;
+    font-size: 3em;
+  }
+  #minus {
+    margin-top: -20px;
+    margin-left: 50px;
+    width: 40px;
+    height: 40px;
+    font-size: 4em;
+  }
+  #plus {
+    margin-top: -100px;
+    margin-left: 230px;
+    width: 40px;
+    height: 40px;
+    font-size: 4em;
+  }
+  #min {
+    font-size: 2em;
+  }
+  #min p {
+    margin-top: 2%;
+  }
+  #switch {
+    width: 90%;
+    margin-left: 50px;
+  }
+  footer {
+    margin-left: 20px;
+    width: 300px;
+    bottom: 10%;
+  }
+  button {
+    height: 40px;
+    width: 40%;
+    font-size: 1em;
+    margin-right: 0px;
+  }
+  #break {
+    border: 3px solid #00cf9e;
+  }
+}
