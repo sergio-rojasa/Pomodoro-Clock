@@ -1,5 +1,5 @@
 var Clock = function() {
-  this.minutes = null;
+  this.minutes = 0;
   this.seconds = 60;
   this.addAMinute = function() {
 
