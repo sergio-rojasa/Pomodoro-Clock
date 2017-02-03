@@ -7,31 +7,28 @@
 </head>
 <body>
   <div id="container">
-    <header>
-      <div id="banner">
-        <p>Pomodoro</p>
-      </div>
-    </header>
-    <main>
-      <div id="clock" onclick="session.togglePaused(); session.countdown()">
-        <p id="currentTime"></p>
-      </div>
+    <div id="banner">
+      <p>Pomodoro</p>
+    </div>
 
-      <div id="configure">
-        <button id="minus">-</buton>
-        <button id="plus">+</button>
-      </div>
-      <div id="min">
+    <div id="clock" onclick="session.togglePaused(); session.countdown()">
+      <p id="currentTime"></p>
+    </div>
+
+    <div id="configure">
+      <button id="minus">-</button>
+      <button id="plus">+</button>
+    </div>
+
+    <div id="min">
       <p><span id="time">25</span><br>min</p>
     </div>
-    </main>
 
-    <footer>
-  <div id="switch">
-    <button id="session">Session</button>
-    <button id="break" >Break</button>
-  </div>
-</footer>
+    <div id="switch">
+      <button id="session">Session</button>
+      <button id="break" >Break</button>
+    </div>
+
   </div>
   <script src="app/clock.js"></script>
 </body>
