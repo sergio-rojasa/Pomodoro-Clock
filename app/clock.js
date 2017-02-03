@@ -15,12 +15,16 @@ var Clock = function(minutes) {
   };
   this.addAMinute = function() {
     this.minutes++;
+    var time = document.getElementById("time");
+    time.innerHTML = this.minutes;
   };
   this.minusAMinute = function() {
     if(this.minutes === 1) {
       return this.minutes;
     }
     this.minutes--;
+    var time = document.getElementById("time");
+    time.innerHTML = this.minutes;
   };
   this.countdown = function() {
     var clock = this;
