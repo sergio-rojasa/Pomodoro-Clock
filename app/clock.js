@@ -29,19 +29,22 @@ var Clock = function(minutes) {
   this.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
     var plus = document.getElementById("plus");
-    if(clock == "session") {
+    var session = document.getElementById("session");
+    var breaks = document.getElementById("break");
 
+    if(clock == "session") {
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
-      console.log(minus);
-      console.log(plus);
+
+      session.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
+      breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
     }
     else if(clock == "breaks"){
-
       minus.setAttribute("onclick", "breaks.minusAMinute()");
       plus.setAttribute("onclick", "breaks.addAMinute()");
-      console.log(minus);
-      console.log(plus);
+
+      session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
+      breaks.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
     }
   }
   this.countdown = function() {
