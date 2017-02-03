@@ -26,6 +26,24 @@ var Clock = function(minutes) {
     var time = document.getElementById("time");
     time.innerHTML = this.minutes;
   };
+  this.switchConfigure = function(clock) {
+    var minus = document.getElementById("minus");
+    var plus = document.getElementById("plus");
+    if(clock == "session") {
+
+      minus.setAttribute("onclick", "session.minusAMinute()");
+      plus.setAttribute("onclick", "session.addAMinute()");
+      console.log(minus);
+      console.log(plus);
+    }
+    else if(clock == "breaks"){
+
+      minus.setAttribute("onclick", "breaks.minusAMinute()");
+      plus.setAttribute("onclick", "breaks.addAMinute()");
+      console.log(minus);
+      console.log(plus);
+    }
+  }
   this.countdown = function() {
     var clock = this;
     var minutes = clock.minutes - 1;
