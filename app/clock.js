@@ -2,6 +2,7 @@ var Clock = function(minutes) {
   this.minutes = minutes;
   this.seconds = 60;
   this.paused = true;
+  this.power = false;
 
   this.init = function() {
     var currentTime = document.getElementById("currentTime");
@@ -20,17 +21,32 @@ var Clock = function(minutes) {
     return this.minutes + ":" + this.seconds;
   };
   this.addAMinute = function() {
+    console.log(this.power);
     this.minutes++;
+
+    if(this.power) {
+      var currentTime = document.getElementById("currentTime");
+      currentTime.innerHTML = this.minutes;
+    }
+    
     var configureTime = document.getElementById("configureTime");
     configureTime.innerHTML = this.minutes;
   };
   this.minusAMinute = function() {
+    console.log(this.power);
     if(this.minutes === 1) {
       return this.minutes;
     }
     this.minutes--;
+
+    if(this.power) {
+      var currentTime = document.getElementById("currentTime");
+      currentTime.innerHTML = this.minutes;
+    }
+
     var configureTime = document.getElementById("configureTime");
     configureTime.innerHTML = this.minutes;
+
   };
   this.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
@@ -91,6 +107,7 @@ var Clock = function(minutes) {
 
 var session = new Clock(25);
 var breaks = new Clock(5);
+session.power = true;
 session.init();
 
 module.exports = Clock;
