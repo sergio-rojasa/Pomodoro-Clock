@@ -15,29 +15,34 @@ var Clock = function(minutes) {
   };
   this.addAMinute = function() {
     this.minutes++;
-    var time = document.getElementById("time");
-    time.innerHTML = this.minutes;
+    var configureTime = document.getElementById("configureTime");
+    configureTime.innerHTML = this.minutes;
   };
   this.minusAMinute = function() {
     if(this.minutes === 1) {
       return this.minutes;
     }
     this.minutes--;
-    var time = document.getElementById("time");
-    time.innerHTML = this.minutes;
+    var configureTime = document.getElementById("configureTime");
+    configureTime.innerHTML = this.minutes;
   };
   this.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
     var plus = document.getElementById("plus");
     var session = document.getElementById("session");
     var breaks = document.getElementById("break");
+    var configureTime = document.getElementById("configureTime");
 
+
+    console.log(this);
     if(clock == "session") {
+      console.log(this);
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
 
       session.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
       breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
+      configureTime.innerHTML = this.minutes;
     }
     else if(clock == "breaks"){
       minus.setAttribute("onclick", "breaks.minusAMinute()");
@@ -45,6 +50,7 @@ var Clock = function(minutes) {
 
       session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
       breaks.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
+      configureTime.innerHTML = this.minutes;
     }
   }
   this.countdown = function() {
@@ -78,8 +84,8 @@ var Clock = function(minutes) {
   };
 };
 
-var session = new Clock(1);
-var breaks = new Clock(2);
+var session = new Clock(25);
+var breaks = new Clock(5);
 
 
 module.exports = Clock;
