@@ -3,12 +3,18 @@ var Clock = function(minutes) {
   this.seconds = 60;
   this.paused = true;
 
+  this.init = function() {
+    var currentTime = document.getElementById("currentTime");
+    var configureTime = document.getElementById("configureTime");
+
+    currentTime.innerHTML = this.minutes;
+    configureTime.innerHTML = this.minutes;
+  };
   this.togglePaused = function() {
     this.paused = !this.paused;
   };
   this.displayTime = function(minutes, seconds, element) {
     var element = document.getElementById(element);
-
     element.innerHTML = minutes + ":" + seconds;
 
     return this.minutes + ":" + this.seconds;
@@ -36,7 +42,6 @@ var Clock = function(minutes) {
 
     console.log(this);
     if(clock == "session") {
-      console.log(this);
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
 
@@ -86,6 +91,6 @@ var Clock = function(minutes) {
 
 var session = new Clock(25);
 var breaks = new Clock(5);
-
+session.init();
 
 module.exports = Clock;
