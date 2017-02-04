@@ -12,10 +12,6 @@ var Clock = function(minutes) {
     configureTime.innerHTML = this.minutes;
   };
   this.togglePaused = function() {
-    var minus = document.getElementById("minus");
-    var plus = document.getElementById("plus");
-
-
     this.paused = !this.paused;
   };
   this.displayTime = function(minutes, seconds, element) {
@@ -92,8 +88,6 @@ var Clock = function(minutes) {
         if(minutes === 0 && seconds <= 1) {
           clock.togglePaused();
           clock.power = false;
-          console.log(clock);
-          console.log(Object.keys(window));
           clearInterval(countDown);
         }
         if(minutes <= 1) {
