@@ -23,7 +23,7 @@ var Clock = function(minutes) {
   this.addAMinute = function() {
     console.log(this.power);
     this.minutes++;
-
+    this.seconds = 60;
     if(this.power && this.paused) {
       var currentTime = document.getElementById("currentTime");
       currentTime.innerHTML = this.minutes;
@@ -38,6 +38,7 @@ var Clock = function(minutes) {
       return this.minutes;
     }
     this.minutes--;
+    this.seconds = 60;
 
     if(this.power && this.paused) {
       var currentTime = document.getElementById("currentTime");
@@ -77,7 +78,6 @@ var Clock = function(minutes) {
   this.countdown = function() {
     var clock = this;
     var minutes = clock.minutes - 1;
-    var seconds = clock.seconds;
 
     if(!clock.paused) {
 
@@ -85,7 +85,7 @@ var Clock = function(minutes) {
         if(clock.paused) {
           clearInterval(countDown);
         }
-        if(minutes === 0 && seconds <= 1) {
+        if(minutes === 0 && clock.seconds <= 1) {
           clock.togglePaused();
           clock.power = false;
           clearInterval(countDown);
@@ -93,14 +93,14 @@ var Clock = function(minutes) {
         if(minutes <= 1) {
           minutes = 0;
         }
-        if(seconds < 1) {
+        if(clock.seconds < 1) {
           minutes--;
-          seconds = 60;
+          clock.seconds = 60;
         }
 
-        seconds--;
+        clock.seconds--;
 
-        clock.displayTime(minutes, seconds, "currentTime");
+        clock.displayTime(minutes, clock.seconds, "currentTime");
       }, 1000);
     }
   };
