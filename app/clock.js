@@ -14,40 +14,25 @@ var Clock = function(minutes) {
   this.togglePaused = function() {
     this.paused = !this.paused;
   };
-  this.displayTime = function(minutes, seconds, element) {
+  this.displayTime = function(time, element) {
     var element = document.getElementById(element);
-    element.innerHTML = minutes + ":" + seconds;
 
-    return this.minutes + ":" + this.seconds;
-  };
+    element.innerHTML = time;
+  }
   this.addAMinute = function() {
-    console.log(this.power);
     this.minutes++;
-    this.seconds = 60;
-    if(this.power && this.paused) {
-      var currentTime = document.getElementById("currentTime");
-      currentTime.innerHTML = this.minutes;
-    }
 
-    var configureTime = document.getElementById("configureTime");
-    configureTime.innerHTML = this.minutes;
+    this.displayTime(this.minutes, "currentTime");
+    this.displayTime(this.minutes, "configureTime");
   };
   this.minusAMinute = function() {
-    console.log(this.power);
     if(this.minutes === 1) {
       return this.minutes;
     }
     this.minutes--;
-    this.seconds = 60;
-
-    if(this.power && this.paused) {
-      var currentTime = document.getElementById("currentTime");
-      currentTime.innerHTML = this.minutes;
-    }
-
-    var configureTime = document.getElementById("configureTime");
-    configureTime.innerHTML = this.minutes;
-
+    
+    this.displayTime(this.minutes, "currentTime");
+    this.displayTime(this.minutes, "configureTime");
   };
   this.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
@@ -56,8 +41,6 @@ var Clock = function(minutes) {
     var breaks = document.getElementById("break");
     var configureTime = document.getElementById("configureTime");
 
-
-    console.log(this);
     if(clock == "session") {
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
