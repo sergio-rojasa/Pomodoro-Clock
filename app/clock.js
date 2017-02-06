@@ -5,18 +5,14 @@ var Clock = function(minutes) {
   this.power = false;
 
   this.init = function() {
-    var currentTime = document.getElementById("currentTime");
-    var configureTime = document.getElementById("configureTime");
-
-    currentTime.innerHTML = this.minutes;
-    configureTime.innerHTML = this.minutes;
+    this.displayTime(this.minutes, "currentTime");
+    this.displayTime(this.minutes, "configureTime");
   };
   this.togglePaused = function() {
     this.paused = !this.paused;
   };
   this.displayTime = function(time, element) {
     var element = document.getElementById(element);
-
     element.innerHTML = time;
   }
   this.addAMinute = function() {
@@ -30,7 +26,7 @@ var Clock = function(minutes) {
       return this.minutes;
     }
     this.minutes--;
-    
+
     this.displayTime(this.minutes, "currentTime");
     this.displayTime(this.minutes, "configureTime");
   };
@@ -39,7 +35,6 @@ var Clock = function(minutes) {
     var plus = document.getElementById("plus");
     var session = document.getElementById("session");
     var breaks = document.getElementById("break");
-    var configureTime = document.getElementById("configureTime");
 
     if(clock == "session") {
       minus.setAttribute("onclick", "session.minusAMinute()");
@@ -47,7 +42,8 @@ var Clock = function(minutes) {
 
       session.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
       breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
-      configureTime.innerHTML = this.minutes;
+
+      this.displayTime(this.minutes, "configureTime");
     }
     else if(clock == "breaks"){
       minus.setAttribute("onclick", "breaks.minusAMinute()");
@@ -55,7 +51,7 @@ var Clock = function(minutes) {
 
       session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
       breaks.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
-      configureTime.innerHTML = this.minutes;
+      this.displayTime(this.minutes, "configureTime");
     }
   }
   this.countdown = function() {
@@ -83,7 +79,7 @@ var Clock = function(minutes) {
 
         clock.seconds--;
 
-        clock.displayTime(minutes, clock.seconds, "currentTime");
+        clock.displayTime(minutes + ":" + clock.seconds, "currentTime");
       }, 1000);
     }
   };
