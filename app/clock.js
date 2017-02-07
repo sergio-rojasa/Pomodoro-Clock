@@ -12,7 +12,7 @@ var Clock = (function() {
   Clock.prototype.power = false;
 
   Clock.prototype.init = function() {
-
+    this.power = true;
     this.displayTime(this.minutes, "currentTime");
     this.displayTime(this.minutes, "configureTime");
 
@@ -25,21 +25,31 @@ var Clock = (function() {
     this.paused = !this.paused;
   };
   Clock.prototype.addAMinute = function() {
-    this.minutes++;
-    this.seconds = 0;
+    if(this.paused) {
+      this.minutes++;
+      this.seconds = 0;
 
-    this.displayTime(this.minutes, "currentTime");
-    this.displayTime(this.minutes, "configureTime");
+      if(this.power == true) {
+        this.displayTime(this.minutes, "currentTime");
+      }
+      this.displayTime(this.minutes, "configureTime");
+    }
+
   };
   Clock.prototype.minusAMinute = function() {
-    if(this.minutes === 1) {
-      return this.minutes;
+    if(this.paused) {
+      if(this.minutes === 1) {
+        return this.minutes;
+      }
+      this.minutes--;
+      this.seconds = 0;
+
+      if(this.power == true) {
+        this.displayTime(this.minutes, "currentTime");
+      }
+      this.displayTime(this.minutes, "configureTime");
     }
-    this.minutes--;
-    this.seconds = 0;
-    
-    this.displayTime(this.minutes, "currentTime");
-    this.displayTime(this.minutes, "configureTime");
+
   };
   Clock.prototype.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
@@ -68,6 +78,10 @@ var Clock = (function() {
   }
   Clock.prototype.countDown = function() {
     var clock = this;
+
+    if(clock.seconds === 60) {
+      clock.seconds = 0;
+    }
     if(!this.paused) {
       var countdown = setInterval(function() {
         if(clock.paused) {
@@ -101,17 +115,3 @@ var breaks = new Clock(5);
 
 session.init();
 module.exports = Clock;
-/* var Clock = function(minutes) {
-
-  this.countdown = function() {
-    var minutes = clock.minutes - 1;
-
-    if(!clock.paused) {
-
-      var countDown = setInterval(function() {
-
-      }, 1000);
-    }
-  };
-};
-*/
