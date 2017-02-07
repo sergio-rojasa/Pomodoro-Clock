@@ -1,36 +1,47 @@
-var Clock = function(minutes) {
-  this.minutes = minutes;
-  this.seconds = 60;
-  this.paused = true;
-  this.power = false;
+var Clock = (function() {
+  function Clock(minutes) {
+    this.minutes = minutes;
+  };
 
-  this.init = function() {
+  Clock.prototype.minutes = {
+    session: 25,
+    breaks: 5
+  };
+  Clock.prototype.seconds = 60;
+  Clock.prototype.paused = true;
+  Clock.prototype.power = false;
+
+  Clock.prototype.init = function() {
+
     this.displayTime(this.minutes, "currentTime");
     this.displayTime(this.minutes, "configureTime");
+
   };
-  this.togglePaused = function() {
-    this.paused = !this.paused;
-  };
-  this.displayTime = function(time, element) {
+  Clock.prototype.displayTime = function(time, element) {
     var element = document.getElementById(element);
     element.innerHTML = time;
-  }
-  this.addAMinute = function() {
+  };
+  Clock.prototype.togglePaused = function() {
+    this.paused = !this.paused;
+  };
+  Clock.prototype.addAMinute = function() {
     this.minutes++;
+    this.seconds = 0;
 
     this.displayTime(this.minutes, "currentTime");
     this.displayTime(this.minutes, "configureTime");
   };
-  this.minusAMinute = function() {
+  Clock.prototype.minusAMinute = function() {
     if(this.minutes === 1) {
       return this.minutes;
     }
     this.minutes--;
-
+    this.seconds = 0;
+    
     this.displayTime(this.minutes, "currentTime");
     this.displayTime(this.minutes, "configureTime");
   };
-  this.switchConfigure = function(clock) {
+  Clock.prototype.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
     var plus = document.getElementById("plus");
     var session = document.getElementById("session");
@@ -40,54 +51,67 @@ var Clock = function(minutes) {
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
 
-      session.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
+      session.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
       breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
 
       this.displayTime(this.minutes, "configureTime");
     }
-    else if(clock == "breaks"){
+    else if(clock == "breaks") {
       minus.setAttribute("onclick", "breaks.minusAMinute()");
       plus.setAttribute("onclick", "breaks.addAMinute()");
 
       session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
-      breaks.setAttribute("style", "background-color: #00cf9e;   color: #f9f9f9;");
+      breaks.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
+
       this.displayTime(this.minutes, "configureTime");
     }
   }
-  this.countdown = function() {
+  Clock.prototype.countDown = function() {
     var clock = this;
-    var minutes = clock.minutes - 1;
-
-    if(!clock.paused) {
-
-      var countDown = setInterval(function() {
+    if(!this.paused) {
+      var countdown = setInterval(function() {
         if(clock.paused) {
-          clearInterval(countDown);
+          clearInterval(countdown);
         }
-        if(minutes === 0 && clock.seconds <= 1) {
+
+        if(clock.minutes === 0 && clock.seconds <= 1) {
           clock.togglePaused();
           clock.power = false;
-          clearInterval(countDown);
+          clearInterval(countdown);
         }
-        if(minutes <= 1) {
-          minutes = 0;
+        if(clock.minutes <= 1) {
+          clock.minutes = 0;
         }
         if(clock.seconds < 1) {
-          minutes--;
+          clock.minutes--;
           clock.seconds = 60;
         }
 
         clock.seconds--;
 
-        clock.displayTime(minutes + ":" + clock.seconds, "currentTime");
+        clock.displayTime(clock.minutes + ":" + clock.seconds, "currentTime");
+
+      }, 1000);
+    }
+  }
+  return Clock;
+})();
+var session = new Clock(25);
+var breaks = new Clock(5);
+
+session.init();
+module.exports = Clock;
+/* var Clock = function(minutes) {
+
+  this.countdown = function() {
+    var minutes = clock.minutes - 1;
+
+    if(!clock.paused) {
+
+      var countDown = setInterval(function() {
+
       }, 1000);
     }
   };
 };
-
-var session = new Clock(25);
-var breaks = new Clock(5);
-session.power = true;
-session.init();
-
-module.exports = Clock;
+*/
