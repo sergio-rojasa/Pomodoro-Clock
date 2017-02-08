@@ -7,24 +7,35 @@ var Clock = (function() {
   Clock.prototype.power = false;
   Clock.prototype.type = null;
 
-  Clock.prototype.init = function(type) {
+  Clock.prototype.init = function(clocktype) {
     var clock = document.getElementById("clock");
+    var minus = document.getElementById("minus");
+    var plus = document.getElementById("plus");
+    var configureTime = document.getElementById("configureTime");
+
     this.power = true;
-    this.displayTime(this.minutes, "currentTime");
-    this.displayTime(this.minutes, "configureTime");
+    this.seconds = 60;
 
-    if(type == 'session') {
+    if(clocktype == 'session') {
+      this.display("SESSION", "type");
+      this.display(this.minutes, "currentTime");
       clock.setAttribute("onclick", "session.togglePaused(); session.countDown()");
+      minus.setAttribute("onclick", "session.minusAMinute()");
+      plus.setAttribute("onclick", "session.addAMinute()");
+      this.display(this.minutes, "configureTime");
     }
-    if(type == "breaks") {
+    if(clocktype == "breaks") {
+      this.display("BREAK", "type");
+      this.display(this.minutes, "currentTime");
       clock.setAttribute("onclick", "breaks.togglePaused(); breaks.countDown()");
+      minus.setAttribute("onclick", "breaks.minusAMinute()");
+      plus.setAttribute("onclick", "breaks.addAMinute()");
+      this.display(this.minutes, "configureTime");
     }
-
-
   };
-  Clock.prototype.displayTime = function(time, element) {
+  Clock.prototype.display = function(value, element) {
     var element = document.getElementById(element);
-    element.innerHTML = time;
+    element.innerHTML = value;
   };
 
   Clock.prototype.togglePaused = function() {
@@ -36,9 +47,9 @@ var Clock = (function() {
       this.seconds = 0;
 
       if(this.power == true) {
-        this.displayTime(this.minutes, "currentTime");
+        this.display(this.minutes, "currentTime");
       }
-      this.displayTime(this.minutes, "configureTime");
+      this.display(this.minutes, "configureTime");
     }
   };
   Clock.prototype.minusAMinute = function() {
@@ -49,9 +60,9 @@ var Clock = (function() {
       this.minutes--;
       this.seconds = 0;
       if(this.power == true) {
-        this.displayTime(this.minutes, "currentTime");
+        this.display(this.minutes, "currentTime");
       }
-      this.displayTime(this.minutes, "configureTime");
+      this.display(this.minutes, "configureTime");
     }
   };
   Clock.prototype.switchConfigure = function(clock) {
@@ -67,7 +78,7 @@ var Clock = (function() {
       session.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
       breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
 
-      this.displayTime(this.minutes, "configureTime");
+      this.display(this.minutes, "configureTime");
     }
     else if(clock == "breaks") {
       minus.setAttribute("onclick", "breaks.minusAMinute()");
@@ -76,7 +87,7 @@ var Clock = (function() {
       session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
       breaks.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
 
-      this.displayTime(this.minutes, "configureTime");
+      this.display(this.minutes, "configureTime");
     }
   }
   Clock.prototype.countDown = function() {
@@ -104,7 +115,7 @@ var Clock = (function() {
           clock.seconds = 60;
         }
         clock.seconds--;
-        clock.displayTime(clock.minutes + ":" + clock.seconds, "currentTime");
+        clock.display(clock.minutes + ":" + clock.seconds, "currentTime");
       }, 1000);
     }
   }
