@@ -38,18 +38,16 @@ var Clock = (function() {
   };
   Clock.prototype.minusAMinute = function() {
     if(this.paused) {
-      if(this.minutes === 1) {
-        return this.minutes;
+      if(this.minutes <= 1) {
+        return this.minutes = 1;
       }
       this.minutes--;
       this.seconds = 0;
-
       if(this.power == true) {
         this.displayTime(this.minutes, "currentTime");
       }
       this.displayTime(this.minutes, "configureTime");
     }
-
   };
   Clock.prototype.switchConfigure = function(clock) {
     var minus = document.getElementById("minus");
@@ -79,7 +77,6 @@ var Clock = (function() {
   Clock.prototype.countDown = function() {
     var clock = this;
 
-
     if(!this.paused) {
       var countdown = setInterval(function() {
         if(clock.paused) {
@@ -90,12 +87,6 @@ var Clock = (function() {
           clock.power = false;
           clearInterval(countdown);
         }
-
-        if(clock.minutes === 1) {
-          clock.minutes = 0;
-          clock.seconds = 60;;
-        }
-
         if(clock.seconds < 1) {
           clock.minutes--;
           clock.seconds = 60;
