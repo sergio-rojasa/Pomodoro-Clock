@@ -79,23 +79,23 @@ var Clock = (function() {
   Clock.prototype.countDown = function() {
     var clock = this;
 
-    if(clock.seconds === 60) {
-      clock.seconds = 0;
-    }
+
     if(!this.paused) {
       var countdown = setInterval(function() {
         if(clock.paused) {
           clearInterval(countdown);
         }
-
         if(clock.minutes === 0 && clock.seconds <= 1) {
           clock.togglePaused();
           clock.power = false;
           clearInterval(countdown);
         }
-        if(clock.minutes <= 1) {
+
+        if(clock.minutes === 1) {
           clock.minutes = 0;
+          clock.seconds = 60;;
         }
+
         if(clock.seconds < 1) {
           clock.minutes--;
           clock.seconds = 60;
