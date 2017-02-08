@@ -2,14 +2,10 @@ var Clock = (function() {
   function Clock(minutes) {
     this.minutes = minutes;
   };
-
-  Clock.prototype.minutes = {
-    session: 25,
-    breaks: 5
-  };
   Clock.prototype.seconds = 60;
   Clock.prototype.paused = true;
   Clock.prototype.power = false;
+  Clock.prototype.type = null;
 
   Clock.prototype.init = function() {
     this.power = true;
@@ -34,7 +30,6 @@ var Clock = (function() {
       }
       this.displayTime(this.minutes, "configureTime");
     }
-
   };
   Clock.prototype.minusAMinute = function() {
     if(this.paused) {
@@ -84,18 +79,22 @@ var Clock = (function() {
         }
         if(clock.minutes === 0 && clock.seconds <= 1) {
           clock.togglePaused();
-          clock.power = false;
           clearInterval(countdown);
+          if(clock.type === "session") {
+            breaks.init();
+            console.log("break init");
+          }
+          else if(clock.type === "breaks") {
+            session.init();
+            console.log("session init");
+          }
         }
         if(clock.seconds < 1) {
           clock.minutes--;
           clock.seconds = 60;
         }
-
         clock.seconds--;
-
         clock.displayTime(clock.minutes + ":" + clock.seconds, "currentTime");
-
       }, 1000);
     }
   }
@@ -103,6 +102,8 @@ var Clock = (function() {
 })();
 var session = new Clock(25);
 var breaks = new Clock(5);
+session.type = "session";
+breaks.type = "breaks";
 
 session.init();
 module.exports = Clock;
