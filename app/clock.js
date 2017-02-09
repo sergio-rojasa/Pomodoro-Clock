@@ -1,43 +1,41 @@
 var Clock = (function() {
-  function Clock(minutes) {
-    this.minutes = minutes;
+  function Clock() {
   };
   Clock.prototype.seconds = 60;
   Clock.prototype.paused = true;
   Clock.prototype.power = false;
   Clock.prototype.type = null;
 
-  Clock.prototype.init = function(clocktype) {
+  Clock.prototype.init = function(minutes) {
     var clock = document.getElementById("clock");
     var minus = document.getElementById("minus");
     var plus = document.getElementById("plus");
-    var configureTime = document.getElementById("configureTime");
-
     this.power = true;
-    this.seconds = 60;
+    this.seconds = 0;
 
-    if(clocktype == 'session') {
+    if(this.type == 'session') {
+      this.minutes = 25;
       this.display("SESSION", "type");
       this.display(this.minutes, "currentTime");
+      this.display(this.minutes, "configureMinute");
       clock.setAttribute("onclick", "session.togglePaused(); session.countDown()");
       minus.setAttribute("onclick", "session.minusAMinute()");
       plus.setAttribute("onclick", "session.addAMinute()");
-      this.display(this.minutes, "configureTime");
     }
-    if(clocktype == "breaks") {
+    if(this.type == 'breaks') {
+      this.minutes = 5;
       this.display("BREAK", "type");
       this.display(this.minutes, "currentTime");
+      this.display(this.minutes, "configureMinute");
       clock.setAttribute("onclick", "breaks.togglePaused(); breaks.countDown()");
       minus.setAttribute("onclick", "breaks.minusAMinute()");
       plus.setAttribute("onclick", "breaks.addAMinute()");
-      this.display(this.minutes, "configureTime");
     }
   };
   Clock.prototype.display = function(value, element) {
     var element = document.getElementById(element);
     element.innerHTML = value;
   };
-
   Clock.prototype.togglePaused = function() {
     this.paused = !this.paused;
   };
@@ -46,10 +44,10 @@ var Clock = (function() {
       this.minutes++;
       this.seconds = 0;
 
-      if(this.power == true) {
+      if(this.power) {
         this.display(this.minutes, "currentTime");
       }
-      this.display(this.minutes, "configureTime");
+      this.display(this.minutes, "configureMinute");
     }
   };
   Clock.prototype.minusAMinute = function() {
@@ -59,10 +57,10 @@ var Clock = (function() {
       }
       this.minutes--;
       this.seconds = 0;
-      if(this.power == true) {
+      if(this.power) {
         this.display(this.minutes, "currentTime");
       }
-      this.display(this.minutes, "configureTime");
+      this.display(this.minutes, "configureMinute");
     }
   };
   Clock.prototype.switchConfigure = function(clock) {
@@ -78,7 +76,7 @@ var Clock = (function() {
       session.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
       breaks.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
 
-      this.display(this.minutes, "configureTime");
+      this.display(this.minutes, "configureMinute");
     }
     else if(clock == "breaks") {
       minus.setAttribute("onclick", "breaks.minusAMinute()");
@@ -87,7 +85,7 @@ var Clock = (function() {
       session.setAttribute("style", "background-color: #f9f9f9; color: #00cf9e; border: 5px solid #00cf9e;");
       breaks.setAttribute("style", "background-color: #00cf9e; color: #f9f9f9;");
 
-      this.display(this.minutes, "configureTime");
+      this.display(this.minutes, "configureMinute");
     }
   }
   Clock.prototype.countDown = function() {
@@ -99,15 +97,20 @@ var Clock = (function() {
           clearInterval(countdown);
         }
         if(clock.minutes === 0 && clock.seconds <= 1) {
+          clock.power = false;
           clock.togglePaused();
+          clock.seconds = 0;
           clearInterval(countdown);
           if(clock.type === "session") {
-            breaks.init("breaks");
+            delete session;
+            breaks.init(5);
             breaks.switchConfigure("breaks");
+            return;
           }
           else if(clock.type === "breaks") {
-            session.init("session");
+            session.init(25);
             session.switchConfigure("session");
+            return;
           }
         }
         if(clock.seconds < 1) {
@@ -121,10 +124,10 @@ var Clock = (function() {
   }
   return Clock;
 })();
-var session = new Clock(25);
-var breaks = new Clock(5);
+var session = new Clock();
+var breaks = new Clock();
 session.type = "session";
 breaks.type = "breaks";
 
-session.init("session");
+session.init();
 module.exports = Clock;

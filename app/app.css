@@ -59,12 +59,12 @@ html {
   font-size: 12em;
   background-color: #f9f9f9;
 }
-#min {
+#configureTime {
   color: #62706c;
-  font-size: 8em;
+  font-size: 5em;
 
 }
-#min p {
+#configureTime p {
   margin-top: 0%;
   text-align: center;
 }
@@ -142,10 +142,10 @@ button {
     height: 40px;
     font-size: 4em;
   }
-  #min {
+  #configureTime {
     font-size: 2em;
   }
-  #min p {
+  #configureTime p {
     margin-top: 2%;
   }
   #switch {
